@@ -4,11 +4,13 @@ global with sharing class MainPageController {
 	public List<SelectOption> statusOptionsTheme { get;set; }
     public List<Material__c> materials { get;set; }
     public List<Notation__c> notations { get;set; }
+    public List<Schedule__c> schedules { get;set; }
     public Map<Id, List<Attachment>> materialsWithAttachment {get;set;}
     public Date scheduleDate {get; set;}
     public Attachment scheduleImg {get; set;}
     public Boolean showScheduleFlag {get; set;}
     public String mainPageTitle {get; set;}
+    public String existSchedule {get; set;}
     
 	public MainPageController() {
 		getPicklistValuesTheme();
@@ -47,7 +49,6 @@ global with sharing class MainPageController {
     }
 
     public PageReference getScheduleByDate(Date choosedScheduleDate) {
-    	List<Schedule__c> schedules;
     	if(choosedScheduleDate == null) {
     		schedules = [SELECT Id, ScheduleDate__c FROM Schedule__c WHERE ScheduleDate__c = TODAY LIMIT 1];
     	} else {
@@ -55,15 +56,18 @@ global with sharing class MainPageController {
     	}
 
     	try {
-    		scheduleImg = [SELECT Id FROM Attachment WHERE ParentId = :schedules[0].Id];
+    		scheduleImg = [SELECT Id, Body FROM Attachment WHERE ParentId = :schedules[0].Id];
     		showScheduleFlag = true;
     	} catch(Exception e) {
     		showScheduleFlag = false;
     		scheduleImg = null;
-    		addErrorMessage('Schedule on this date does not exist!');
-    	} finally {
+            existSchedule = 'Schedule on choosed day does not exist!';
+        } finally {
             if(!showScheduleFlag) {
                 mainPageTitle = ' does not exist ';
+            } else {
+                mainPageTitle = '';
+                existSchedule = '';
             }
         }
     	return null;
@@ -131,13 +135,8 @@ global with sharing class MainPageController {
         return null;
 	}
 
-	private String getParameterByName(String parameterName) {
+	public String getParameterByName(String parameterName) {
 		String sObjectId = ApexPages.currentPage().getParameters().get(parameterName);
 		return sObjectId;
 	}  
-
-	private void addErrorMessage(String mess) {
-        ApexPages.Message errorMessage = new ApexPages.Message(ApexPages.Severity.FATAL, mess);
-        ApexPages.addMessage(errorMessage);
-    }
 }

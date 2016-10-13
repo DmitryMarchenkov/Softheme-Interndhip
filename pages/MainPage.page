@@ -68,6 +68,7 @@
 	                        </div>
                         </div>
 
+                        <h2>{!existSchedule}</h2>
                         <div class="scheduleImg">
                         	<apex:image url="/servlet/servlet.FileDownload?file={!scheduleImg.Id}" rendered="{!showScheduleFlag}"/>
                         </div>
@@ -82,6 +83,7 @@
 	                            <apex:actionSupport event="onchange" action="{!showMaterials}" reRender="materialsPage" status="initMaterialBlock"/>
 	                            <apex:selectOptions value="{!statusOptionsTheme}"/>
 	                        </apex:selectList>
+	                        <apex:actionFunction name="showMaterials" action="{!showMaterials}" reRender="materialsPage" status="initMaterialBlock"/>
 	                    </div>
                         <apex:actionFunction name="rerenderMaterials" action="{!showMaterials}" reRender="materialsPage" status="initMaterialBlock"/>
 

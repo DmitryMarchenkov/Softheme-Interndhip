@@ -148,7 +148,9 @@ function addAttachmentHandler(fileType) {
     var saveButton = $("#saveMaterialButton");
 
     $("[id$='selectMaterials']").on( "change", function() {
-      $(".outerTable").css("display", "block");
+      if ($("[id$='materialsRepeat']")[0] != undefined) {
+        $(".outerTable").css("display", "block");
+      }
     });    
   }
 
@@ -228,6 +230,7 @@ function addScheduleButtonHandler() {
 
 function mainPageHandler() {
   $( "#MainButton" ).on( "click", function() {
+    loadSchedule();
     $("[id$='mainPage']").css('display', 'block');
     $("[id$='schedulePage']").css('display', 'none');
     $("[id$='materialsPage']").css('display', 'none');
