@@ -1,12 +1,12 @@
 @isTest
 public class TestSetup {
-	public static MainPageController controller = new MainPageController();
+	public static MainPageController controller;
 	public static Notation__c notation;
-	public static Material__c material = new Material__c();
-	public static Schedule__c schedule = new Schedule__c();
+	public static Material__c material;
+	public static Schedule__c schedule;
 	public static Attachment attachment;
-	public static List<Notation__c> notations = new List<Notation__c>();
-	public static List<Attachment> attachments = new List<Attachment>();
+	public static List<Notation__c> notations;
+	public static List<Attachment> attachments;
 	public static Integer count;
 	public static Integer numberToDelete;
 	public static Date scheduleDate;
@@ -14,7 +14,17 @@ public class TestSetup {
 	public static Id attachmentParentId; 
 
 	@isTest
+	public static void init() {
+		controller = new MainPageController();
+		material = new Material__c();
+		schedule = new Schedule__c();
+		notations = new List<Notation__c>();
+		attachments = new List<Attachment>();
+	}	
+
+	@isTest
 	public static void insertNotations() {
+		init();
 		for(Integer i = 0; i < count; i++) {
 			notation = new Notation__c();
 			notation.Note__c = notationText + i;
@@ -29,6 +39,7 @@ public class TestSetup {
 
 	@isTest
 	public static void insertSchedule() {
+		init();
 		schedule.ScheduleDate__c = scheduleDate;
 		insert schedule;
 
@@ -41,6 +52,7 @@ public class TestSetup {
 
 	@isTest
 	public static void insertMaterial() {
+		init();
 		material.Name = 'Web Test';
 		material.Theme__c = 'Web';
 		insert material;
@@ -52,6 +64,7 @@ public class TestSetup {
 
 	@isTest
 	public static void insertAttachment() {
+		init();
 		for(Integer i = 0; i < count; i++) {
 			attachment = new Attachment();
 			attachment.Name = 'TestAttachment ' + i;

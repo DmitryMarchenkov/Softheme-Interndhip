@@ -3,6 +3,7 @@ private class MainPageControllerTest {
 	
 	@isTest 
 	static void testSaveNotations() {
+		TestSetup.init();
 		String notationText = 'Test Notation';
 		TestSetup.controller.inputNotation = notationText;
 
@@ -16,6 +17,7 @@ private class MainPageControllerTest {
 
 	@isTest 
 	static void testSaveNotationsNeg() {
+		TestSetup.init();
 		String notationText = '   ';
 		TestSetup.controller.inputNotation = notationText;
 
@@ -100,7 +102,6 @@ private class MainPageControllerTest {
 
 	@isTest 
 	static void testRemoveAttachment() {
-
 		Integer countAttachments = 10;
 		TestSetup.count = countAttachments;
 		TestSetup.numberToDelete = 3;

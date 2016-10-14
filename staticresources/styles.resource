@@ -29,9 +29,8 @@
     height: 100px;
 }
 
-#logoutBtn {
-    top: 0px;
-    right: 0px;
+#homeLink {
+    right: 10px;
     position: absolute;
 }
 

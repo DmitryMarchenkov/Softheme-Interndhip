@@ -21,9 +21,7 @@
 
                 <div id="sfLogo">
                     <img  src="https://login.salesforce.com/img/logo198.png"/>
-					<button id="logoutBtn" class="btn btn-info" onclick="location.href='/secur/logout.jsp'">
-				        Logout
-				    </button>
+                    <a id="homeLink" href="{!URLFOR('/home/home.jsp')}" class="checkPermission">Go HOME!</a>
                 </div>
 	  		</div>
 

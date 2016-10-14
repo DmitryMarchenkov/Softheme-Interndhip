@@ -12,6 +12,7 @@ global with sharing class DragAndDropScheduleUploadService
 		fName += '.';
 		String fRes = req.params.get('FileResolution');
         Date scheduleDate = date.valueOf(req.params.get('ScheduleDate'));
+        System.debug(loggingLevel.Error, '*** scheduleDate: ' + scheduleDate);
         Blob postContent = req.requestBody; 
 
 		List<Schedule__c> scheduleToDelete = [SELECT Id, ScheduleDate__c FROM Schedule__c WHERE ScheduleDate__c =: scheduleDate];
